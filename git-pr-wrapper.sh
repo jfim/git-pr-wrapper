@@ -7,7 +7,7 @@ export pr_wrapper_version=0.1.0
 # Use hub if it exists
 which hub &> /dev/null
 if [ "$?" -eq "0" ]; then
-	export git_command=hub
+  export git_command=hub
 fi
 
 gitPrWrapper() {
@@ -57,6 +57,3 @@ gitPrWrapper() {
 }
 
 alias git=gitPrWrapper
-
-# If not sourced, display the version and git command used
-[[ "${BASH_SOURCE[0]}" == "${0}" ]] && echo "Configured pr-wrapper $pr_wrapper_version, using $git_command as git command"
