@@ -1,20 +1,21 @@
 #!/bin/bash
+# vim:set ts=2 sw=2 et:
 
-git_command=git
-pr_wrapper_version=0.1.0
+export git_command=git
+export pr_wrapper_version=0.1.0
 
 # Use hub if it exists
 which hub &> /dev/null
 if [ "$?" -eq "0" ]; then
-	git_command=hub
+	export git_command=hub
 fi
 
 gitPrWrapper() {
   # Handle git update-pull-request
   if [ "$1" = "update-pull-request" ]; then
-    git_branch=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
+    git_branch=`$git_command rev-parse --abbrev-ref HEAD 2> /dev/null`
     erl=$?
-    if [ "$erl" -neq "0" ]; then
+    if [[ $erl -ne 0 ]]; then
       echo "git returned with status code $erl"
       return $erl
     fi
@@ -33,7 +34,7 @@ gitPrWrapper() {
     git rebase master $git_branch
 
     erl=$?
-    if [ "$erl" -neq "0" ]; then
+    if [[ $erl -ne 0 ]]; then
       echo "Rebase failed with status code $erl"
       echo "Fix merge conflicts and then try again"
       return $erl
@@ -50,7 +51,8 @@ gitPrWrapper() {
     echo "pr-wrapper version $pr_wrapper_version"
     return $erl
   else
-    $git_command $@
+    $git_command "$@"
+    return $?
   fi
 }
 
