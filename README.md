@@ -21,3 +21,7 @@ pr-wrapper version 0.0.1
 ## Usage
 
 `git update-pull-request` in a branch, or `git update-pull-request <branch_name>` from master. Equivalent to `git rebase master $branch_name` followed by `git push origin $branch_name`.
+
+## License
+
+WTFPL.
